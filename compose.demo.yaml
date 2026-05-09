@@ -1,0 +1,29 @@
+name: demo
+services:
+  app:
+    image: alpine:3
+    restart: unless-stopped
+    networks:
+      - internal
+      - gate
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    image: allape/autodumpmysql:8
+    restart: unless-stopped
+    networks:
+      - internal
+    healthcheck:
+      test: mysql -uroot -p"$$MYSQL_ROOT_PASSWORD" -e "SELECT 1" > /dev/null 2>&1 || exit 1
+    environment:
+      - MYSQL_ROOT_PASSWORD=rIHdF5gUKmyAFvdtgUYL
+      - MYSQL_DATABASE=demo
+    volumes:
+      - ./database:/var/lib/mysql
+networks:
+  gate:
+    name: gate
+    external: true
+  internal:
+    internal: true
