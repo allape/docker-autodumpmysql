@@ -31,7 +31,7 @@ CMD ["mysqld"]
 # export x_docker_registry_prefix="docker-registry.lan.allape.cc/"
 # export x_docker_registry_image_name="$x_docker_registry_prefix$x_docker_image_name"
 
-# docker build --platform linux/arm64 --build-arg http_proxy=$x_docker_http_proxy --build-arg https_proxy=$x_docker_http_proxy -f Dockerfile -t $x_docker_image_name .
+# docker build --platform linux/arm64 --build-arg http_proxy=$x_docker_http_proxy --build-arg https_proxy=$x_docker_http_proxy -f Dockerfile -t "$x_docker_image_name-arm64" .
 # docker build --platform linux/amd64 --build-arg http_proxy=$x_docker_http_proxy --build-arg https_proxy=$x_docker_http_proxy -f Dockerfile -t $x_docker_image_name .
 # docker tag $x_docker_image_name $x_docker_registry_image_name && docker push $x_docker_registry_image_name
 
