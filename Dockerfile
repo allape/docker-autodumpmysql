@@ -25,7 +25,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 3306 33060
 CMD ["mysqld"]
 
-### build ###
+### BUILD ###
 # export x_docker_http_proxy="http://host.docker.internal:1080"
 # export x_docker_image_name="allape/autodumpmysql:8"
 # export x_docker_registry_prefix="docker-registry.lan.allape.cc/"
@@ -37,3 +37,7 @@ CMD ["mysqld"]
 
 # sudo docker pull $x_docker_registry_image_name && sudo docker tag $x_docker_registry_image_name $x_docker_image_name
 # sudo docker run -d --name mysqltest -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=Root_123456" -v "$(pwd)/database:/var/lib/mysql" $x_docker_image_name
+
+## Testing autodump with `--dumpnow` must be with user `mysql` instead of `root`.
+## If running test is before a cron-triggered dump, there will/might occur a `permission denied` error.
+# sudo docker exec mysqltest gosu mysql autodump --dumpnow
